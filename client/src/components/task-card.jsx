@@ -42,11 +42,7 @@ function TaskCard({ completed, title, description }) {
                 )}
               </button>
               <div className="flex-1">
-                <h3
-                  className={`font-medium ${
-                    completed ? "text-gray-500 line-through" : "text-gray-900"
-                  }`}
-                >
+                <h3 className={`font-medium ${completed ? "text-gray-500 line-through" : "text-gray-900"}`}>
                   {title}
                 </h3>
                 <p className={`mt-1 text-sm ${ completed ? "text-gray-400 line-through" : "text-gray-600" }`} >

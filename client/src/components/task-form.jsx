@@ -3,8 +3,13 @@ import React from 'react';
 
 function TaskForm({setTasks, api}) {
     const [newTask, setNewTask] = useState({title: '', description: ''});
+    const [hidden, setHidden] = useState(true);
 
-  
+    const handleClick = (e) => {
+      const action = e.target.dataset.action;
+      setHidden(!hidden);
+    }
+
     const handleCreateTask = async () => {
       await api.create(setTasks, setNewTask, newTask);
     }
@@ -20,8 +25,9 @@ function TaskForm({setTasks, api}) {
             type="text"
             placeholder="Add a new task"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            onClick={handleClick}
           />
-          <div className="mt-3">
+          <div data-hidden={hidden} style={hidden ? { display: 'none' } : {}}className="mt-3">
             <textarea
               placeholder="Add a description (optional)"
               rows="3"
