@@ -4,6 +4,9 @@ import React from 'react';
 function TaskForm({setTasks, api}) {
     const [newTask, setNewTask] = useState({title: '', description: ''});
     const [hidden, setHidden] = useState(true);
+    
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
 
     const handleClick = (e) => {
       const action = e.target.dataset.action;

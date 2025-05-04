@@ -19,10 +19,12 @@ export class ApiRequester {
 
     static async create(fnCreate, fnSet, data) {
         if(!data) return;
+        const token = localStorage.getItem('token');
 
-        axios.post(`${URL}`, data)
+        axios.post(`${URL}`, data, {headers: {Authorization: `Bearer ${token}`}})
             .then(response => fnCreate(prev => [...prev, response.data]))
             .catch(error => console.error('Error creating data:', error));
-            fnSet({title: '', description: ''});
+
+        fnSet({title: '', description: ''});
     }
 }

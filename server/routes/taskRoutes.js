@@ -5,13 +5,14 @@ const pool = require('../database');
 const router = express.Router();
 
 //create task
-router.post('/createTasks', authenticateToken, async (req, res) => {
+router.post('/createTask', authenticateToken, async (req, res) => {
     const { id, title, description } = req.body;
     try {
         const result = await pool.query(
             'INSERT INTO tasks (id, title, description, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
             [id, title, description, req.user.userId]
         );
+
         res.json(result.rows[0]);
     } catch (error) {
         console.error('Error creating task:', error);
