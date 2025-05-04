@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const URL = import.meta.env.VITE_APP_API_URL
-const TOKEN = localStorage.getItem('token') || null;
 
 export class ApiRequester {
 
@@ -12,7 +11,8 @@ export class ApiRequester {
     }
 
     static async get(fn) {
-        axios.get(`${URL}/tasks/fetchTasks`, {headers: {Authorization: `Bearer ${TOKEN}`}})
+        const token = localStorage.getItem('token');
+        axios.get(`${URL}/tasks/fetchTasks`, {headers: {Authorization: `Bearer ${token}`}})
             .then(response => fn(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }
