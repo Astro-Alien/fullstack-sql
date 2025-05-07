@@ -11,7 +11,9 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-
+    const bcrypt = require('bcrypt');
+    bcrypt.hash('Test', 12).then(console.log);
+   
     if (user.rows.length === 0) {
         return res.status(401).send('Invalid username or password');
     }

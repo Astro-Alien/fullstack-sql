@@ -21,7 +21,7 @@ function TodoList() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <Header />
           <div className="mb-8">
-            <TaskForm setTasks={setTasks} api={ApiRequester}/>
+            <TaskForm setTasks={setTasks} api={ApiRequester} length={tasks.length}/>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tasks.map((task) => (

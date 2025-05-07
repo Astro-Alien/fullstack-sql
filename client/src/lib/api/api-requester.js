@@ -17,14 +17,12 @@ export class ApiRequester {
             .catch(error => console.error('Error fetching data:', error));
     }
 
-    static async create(fnCreate, fnSet, data) {
+    static async create(fnCreate, data) {
         if(!data) return;
         const token = localStorage.getItem('token');
 
-        axios.post(`${URL}`, data, {headers: {Authorization: `Bearer ${token}`}})
+        axios.post(`${URL}/tasks/createTask`, data, {headers: {Authorization: `Bearer ${token}`}})
             .then(response => fnCreate(prev => [...prev, response.data]))
             .catch(error => console.error('Error creating data:', error));
-
-        fnSet({title: '', description: ''});
     }
 }
