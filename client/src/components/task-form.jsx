@@ -25,7 +25,6 @@ function TaskForm({setTasks, api, length}) {
       const id = length + 1;
 
       const newTask = {
-        id: id,
         title: title,
         description: description
       }

@@ -6,11 +6,11 @@ const router = express.Router();
 
 //create task
 router.post('/createTask', authenticateToken, async (req, res) => {
-    const { id, title, description } = req.body;
+    const { title, description } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO tasks (id, title, description, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
-            [id, title, description, req.user.userId]
+            'INSERT INTO tasks (title, description, user_id) VALUES ($1, $2, $3) RETURNING *',
+            [title, description, req.user.userId]
         );
 
         res.json(result.rows[0]);
