@@ -1,6 +1,16 @@
-function TaskCard({ completed, title, description }) {
+import { useRef } from "react";
+
+function TaskCard({ id, setTasks, completed, title, description, api }) {
+    const cardRef = useRef(null);
+
+    const handleDelete = async (e) => {
+        const taskId = Number(cardRef.current.dataset.id);
+        await api.delete(setTasks, taskId);
+        // perform toast notification here
+    }
+
     return (
-      <div className="rounded-xl shadow-sm transition-all bg-white border border-gray-200 overflow-hidden">
+      <div ref={cardRef} data-id={id} className="rounded-xl shadow-sm transition-all bg-white border border-gray-200 overflow-hidden">
         <div className="p-4">
           <div className="flex items-start justify-between mb-2">
             <div className="flex items-start flex-1">
@@ -51,7 +61,7 @@ function TaskCard({ completed, title, description }) {
               </div>
             </div>
             <div className="flex space-x-2 ml-4">
-              <button  className="text-gray-400 hover:text-indigo-600 transition-colors focus:outline-none" aria-label="Edit todo">
+              <button  id="update" className="text-gray-400 hover:text-indigo-600 transition-colors focus:outline-none" aria-label="Edit todo">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -68,7 +78,7 @@ function TaskCard({ completed, title, description }) {
                   <path d="m15 5 4 4" />
                 </svg>
               </button>
-              <button className="text-gray-400 hover:text-red-500 transition-colors focus:outline-none" aria-label="Delete todo">
+              <button  onClick={handleDelete} id="delete" className="text-gray-400 hover:text-red-500 transition-colors focus:outline-none" aria-label="Delete todo">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

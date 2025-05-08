@@ -25,4 +25,13 @@ export class ApiRequester {
             .then(response => fnCreate(prev => [...prev, response.data]))
             .catch(error => console.error('Error creating data:', error));
     }
+
+    static async delete(fn, id){
+        if(!id) return;
+        const token = localStorage.getItem('token');
+
+        axios.delete(`${URL}/tasks/deleteTask/${id}`, {headers: {Authorization: `Bearer ${token}`}})
+            .then(() => fn(prev => prev.filter(task => task.id !== id)))
+            .catch(error => console.error('Error deleting data:', error));
+    }
 }
